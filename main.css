@@ -1,4 +1,33 @@
-﻿.container {
+﻿.table {
+    width: 50%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    cursor:pointer;
+    text-align: center;
+    height: 50px;
+    background-color: lightblue;
+    
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+td {
+    padding: 10px;
+    text-align: left;
+    height: 30px;
+}
+
+
+th, td{
+    border: 1px solid black;
+}
+
+.container {
     width: 305px;
     height: 80px;
     position: relative;
@@ -24,6 +53,7 @@
     background-color: #ad3b1f;
     border: 2px white;
     border-radius: 10px;
+    cursor:pointer;
 }
 
 .circle1 {

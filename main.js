@@ -9,7 +9,6 @@ async function loaddata(url, table) {
     tableHead.innerHTML = "<tr></tr>";
     tableBody.innerHTML = "";
 
-
     //some variables
     var tempObj;
     var OSU_lat = 44.5673436
@@ -45,9 +44,9 @@ async function loaddata(url, table) {
     }
     //add distance table header
     const distanceHeader = document.createElement("th");
-    distanceHeader.textContent = "Distance (miles)";
+    distanceHeader.textContent = "Distance from OSU (miles)";
 
-    
+   //add event listener for sorting
     distanceHeader.addEventListener('click', function () {
         sortTable();
     });
