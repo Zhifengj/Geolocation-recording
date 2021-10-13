@@ -50,49 +50,54 @@ async function loaddata(url, table) {
     distanceHeader.addEventListener('click', function () {
         sortTable();
     });
-    
+
     tableHead.querySelector("tr").appendChild(distanceHeader);
-    
+
 }
 
 //table sorting function referenced from : https://www.w3schools.com/howto/howto_js_sort_table.asp
 function sortTable() {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("myTable");
-    switching = true;
-    dir = "asc";
+    //some variables
+    var table = document.getElementById("myTable");
+    var rows, i;
+    var switching = true;
+    var first_row, second_row;
+    var switchcount = 0;
+    var sort_direction = 0; //ascending direction
+
+    //start loop
     while (switching) {
         switching = false;
         rows = table.rows;
+        //go through table data
         for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[3];
-            y = rows[i + 1].getElementsByTagName("TD")[3];
-            if (dir == "asc") {
-                if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                    shouldSwitch = true;
+            //get first and second row disctance
+            first_row = rows[i].getElementsByTagName("td")[3];
+            second_row = rows[i + 1].getElementsByTagName("td")[3];
+            //dir is asc
+            if (sort_direction == 0) {
+                if (Number(first_row.innerHTML) > Number(second_row.innerHTML)) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
                     break;
                 }
-            } else if (dir == "desc") {
-                if (Number(x.innerHTML) < Number(y.innerHTML)) {
-                    shouldSwitch = true;
+            } else {
+              //dir is desc
+                if (Number(first_row.innerHTML) < Number(second_row.innerHTML)) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
                     break;
                 }
             }
         }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        //change direction after each click
+        if (switchcount == 0 && sort_direction == 0) {
+            sort_direction = 1;
             switching = true;
-            switchcount++;
-        } else {
-            if (switchcount == 0 && dir == "asc") {
-                dir = "desc";
-                switching = true;
-            }
         }
     }
 }
 
 loaddata("https://s3-us-west-2.amazonaws.com/cdt-web-storage/cities.json", document.querySelector("table"));
-
-
